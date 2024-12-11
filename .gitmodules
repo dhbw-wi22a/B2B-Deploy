@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/dhbw-wi22a/B2B_Backend.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/dhbw-wi22a/B2B-Frontend.git
