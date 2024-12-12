@@ -34,7 +34,8 @@ services:
     env_file:
       - path: .env
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro            # Config file
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro          # Config file
+      - angular:/usr/share/nginx  # Angular build
       - media_data:/app/data/media                              # Media files directory
       - static_data:/app/data/static                            # Static files directory
     networks:
@@ -48,8 +49,18 @@ services:
         max-file: "5"
     depends_on:
       - django-app
+      - angular-app
+
+  angular-app:
+    build: frontend
+    volumes:
+      - angular:/app/dist  # Persist build output
+    networks:
+      - app_net
+
 
 volumes:
   db_data:
   media_data:
   static_data:
+  angular:
