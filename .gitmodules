@@ -1,9 +1,9 @@
 [submodule "backend"]
 	path = backend
 	url = https://github.com/dhbw-wi22a/B2B_Backend.git
-	branch = master
+	branch = release
 
 [submodule "frontend"]
 	path = frontend
 	url = https://github.com/dhbw-wi22a/B2B-Frontend.git
-	branch = main
+	branch = release
