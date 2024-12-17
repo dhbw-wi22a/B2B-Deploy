@@ -1,0 +1,25 @@
+name: Update Submodules
+
+on:
+  repository_dispatch:
+    types: [update-submodule]
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Deploy Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+
+      - name: Update Submodules
+        run: |
+          git submodule update --remote --recursive
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Auto-update submodules [${{ github.event.client_payload.repo }}]" || echo "No changes to commit"
+          git push
