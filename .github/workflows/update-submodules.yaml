@@ -14,12 +14,20 @@ jobs:
         with:
           submodules: true
           token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          fetch-depth: 0 
+
+      # To prevent the update from main-branches
+      - name: Checkout release Branch
+        run: |
+          git checkout release
+          git pull origin release
 
       - name: Update Submodules
         run: |
+          git submodule sync
           git submodule update --remote --recursive
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add .
           git commit -m "Auto-update submodules [${{ github.event.client_payload.repo }}]" || echo "No changes to commit"
-          git push
+          git push origin release
