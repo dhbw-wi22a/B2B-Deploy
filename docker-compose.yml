@@ -9,6 +9,8 @@ services:
     restart: always
     env_file:
       - path: .env
+    ports:
+      - ${DJANGO_PORT:-8888}:8000 # Map the Django port
     volumes:
       - db_data:/app/data/db          # Persist SQLite database file
       - media_data:/app/data/media    # Persist uploaded media files
